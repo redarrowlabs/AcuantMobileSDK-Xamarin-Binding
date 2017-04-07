@@ -758,6 +758,7 @@ namespace AcuantMobileSDK
 		void DidPressBackButton();
 
 		// @optional -(void)mobileSDKWasValidated:(BOOL)wasValidated;
+		[Abstract]
 		[Export("mobileSDKWasValidated:")]
 		void MobileSDKWasValidated(bool wasValidated);
 
@@ -915,7 +916,7 @@ namespace AcuantMobileSDK
 		[Static]
 		[Export("initAcuantMobileSDK")]
 		//[Verify(MethodToProperty)]
-		AcuantMobileSDKController InitAcuantMobileSDK { get; }
+		AcuantMobileSDKController InitAcuantMobileSDK();
 
 		// +(AcuantMobileSDKController *)initAcuantMobileSDKWithLicenseKey:(NSString *)key AndShowCardCaptureInterfaceInViewController:(UIViewController *)vc delegate:(id<AcuantMobileSDKControllerCapturingDelegate,AcuantMobileSDKControllerProcessingDelegate>)delegate typeCard:(AcuantCardType)typeCard region:(AcuantCardRegion)region isBarcodeSide:(BOOL)isBarcodeSide;
 		[Static]
