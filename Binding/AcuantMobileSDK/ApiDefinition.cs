@@ -713,6 +713,8 @@ namespace AcuantMobileSDK
 		IntPtr Constructor(NSDictionary dictionary, int regionID, int processType);
 	}
 
+	interface IAcuantMobileSDKControllerCapturingDelegate { }
+
 	// @protocol AcuantMobileSDKControllerCapturingDelegate <NSObject>
 	[Protocol, Model]
 	[BaseType(typeof(NSObject))]
@@ -925,11 +927,11 @@ namespace AcuantMobileSDK
 
 		// -(void)showManualCameraInterfaceInViewController:(UIViewController *)vc delegate:(id<AcuantMobileSDKControllerCapturingDelegate>)delegate cardType:(AcuantCardType)cardType region:(AcuantCardRegion)region andBackSide:(BOOL)isBackSide;
 		[Export("showManualCameraInterfaceInViewController:delegate:cardType:region:andBackSide:")]
-		void ShowManualCameraInterfaceInViewController(UIViewController vc, AcuantMobileSDKControllerCapturingDelegate @delegate, AcuantCardType cardType, AcuantCardRegion region, bool isBackSide);
+		void ShowManualCameraInterfaceInViewController(UIViewController vc, IAcuantMobileSDKControllerCapturingDelegate @delegate, AcuantCardType cardType, AcuantCardRegion region, bool isBackSide);
 
 		// -(void)showBarcodeCameraInterfaceInViewController:(UIViewController *)vc delegate:(id<AcuantMobileSDKControllerCapturingDelegate>)delegate cardType:(AcuantCardType)cardType andRegion:(AcuantCardRegion)region;
 		[Export("showBarcodeCameraInterfaceInViewController:delegate:cardType:andRegion:")]
-		void ShowBarcodeCameraInterfaceInViewController(UIViewController vc, AcuantMobileSDKControllerCapturingDelegate @delegate, AcuantCardType cardType, AcuantCardRegion region);
+		void ShowBarcodeCameraInterfaceInViewController(UIViewController vc, IAcuantMobileSDKControllerCapturingDelegate @delegate, AcuantCardType cardType, AcuantCardRegion region);
 
 		// -(void)dismissCardCaptureInterface;
 		[Export("dismissCardCaptureInterface")]
