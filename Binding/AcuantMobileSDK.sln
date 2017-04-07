@@ -1,0 +1,28 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcuantMobileSDK", "AcuantMobileSDK\AcuantMobileSDK.csproj", "{86FF1B24-56AD-46A8-9726-B9F6457735D1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Binding Source", "Binding Source", "{8134A978-BE37-409F-9E59-102C9C9FBADC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "output", "output", "{312986C8-613D-44F1-A8A0-6D46F2221494}"
+	ProjectSection(SolutionItems) = preProject
+		..\Binding Source\iOS\output\ApiDefinitions.cs = ..\Binding Source\iOS\output\ApiDefinitions.cs
+		..\Binding Source\iOS\output\StructsAndEnums.cs = ..\Binding Source\iOS\output\StructsAndEnums.cs
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{86FF1B24-56AD-46A8-9726-B9F6457735D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86FF1B24-56AD-46A8-9726-B9F6457735D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86FF1B24-56AD-46A8-9726-B9F6457735D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86FF1B24-56AD-46A8-9726-B9F6457735D1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{312986C8-613D-44F1-A8A0-6D46F2221494} = {8134A978-BE37-409F-9E59-102C9C9FBADC}
+	EndGlobalSection
+EndGlobal
