@@ -1,0 +1,3 @@
+[submodule "Binding Source/iOS/AcuantMobileSDK"]
+	path = Binding Source/iOS/AcuantMobileSDK
+	url = https://github.com/Acuant/AcuantiOSMobileSDK.git
