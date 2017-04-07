@@ -52,11 +52,12 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="s07-3m-PRs">
-                                                    <rect key="frame" x="93" y="7" width="189" height="29"/>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="s07-3m-PRs">
+                                                    <rect key="frame" x="67.5" y="7" width="240" height="29"/>
                                                     <segments>
-                                                        <segment title="Medical Card"/>
-                                                        <segment title="ID Card"/>
+                                                        <segment title="Medical"/>
+                                                        <segment title="Drivers License"/>
+                                                        <segment title="Passport"/>
                                                     </segments>
                                                 </segmentedControl>
                                             </subviews>

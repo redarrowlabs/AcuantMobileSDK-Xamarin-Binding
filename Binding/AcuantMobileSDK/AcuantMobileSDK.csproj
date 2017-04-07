@@ -44,7 +44,7 @@
     <NativeReference Include="..\..\Binding Source\iOS\AcuantMobileSDK\AcuantMobileSDK.embeddedframework\AcuantMobileSDK.framework">
       <Kind>Framework</Kind>
       <SmartLink>False</SmartLink>
-      <Frameworks>AssetsLibrary, SystemConfiguration, AudioToolbox, AVFoundation, CoreMedia, CoreVideo, CoreGraphics, QuartzCore, CoreMotion, Accelerate, CoreText, ImageIO</Frameworks>
+      <Frameworks>AssetsLibrary, SystemConfiguration, AudioToolbox, AVFoundation, CoreMedia, CoreVideo, CoreGraphics, QuartzCore, CoreMotion, Accelerate, CoreText, ImageIO, CoreLocation</Frameworks>
       <LinkerFlags>-lc++ -lz -liconv</LinkerFlags>
     </NativeReference>
     <NativeReference Include="..\..\Binding Source\iOS\AcuantMobileSDK\AcuantMobileSDK.embeddedframework\Resources\Frameworks\MicroBlink.framework">

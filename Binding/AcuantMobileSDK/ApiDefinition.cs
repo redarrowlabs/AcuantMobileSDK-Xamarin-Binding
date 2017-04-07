@@ -760,7 +760,6 @@ namespace AcuantMobileSDK
 		void DidPressBackButton();
 
 		// @optional -(void)mobileSDKWasValidated:(BOOL)wasValidated;
-		[Abstract]
 		[Export("mobileSDKWasValidated:")]
 		void MobileSDKWasValidated(bool wasValidated);
 
