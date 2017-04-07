@@ -3,11 +3,11 @@
 using UIKit;
 using AcuantMobileSDK;
 
-namespace AcuantSDK
+namespace AcuantMobileSDK_iOS_Sample
 {
-	public partial class ViewController : UIViewController
+	public partial class ViewController : UITableViewController, IAcuantMobileSDKControllerCapturingDelegate
 	{
-		private AcuantMobileSDKController SdkController;
+		//private AcuantMobileSDKController SdkController;
 
 		protected ViewController(IntPtr handle) : base(handle)
 		{
@@ -18,14 +18,49 @@ namespace AcuantSDK
 		{
 			base.ViewDidLoad();
 
-			SdkController = AcuantMobileSDKController.InitAcuantMobileSDKWithLicenseKey(string.Empty, this);
-			// Perform any additional setup after loading the view, typically from a nib.
+			KeyEntry.ShouldReturn = (textField) =>
+			{
+				KeyEntry.ResignFirstResponder();
+
+				string key = KeyEntry.Text;
+
+				//SdkController = AcuantMobileSDKController.InitAcuantMobileSDKWithLicenseKey(KeyEntry.Text, this);
+				return true;
+			};
 		}
 
-		public override void DidReceiveMemoryWarning()
+		partial void CaptureFrontTapped(Foundation.NSObject sender)
 		{
-			base.DidReceiveMemoryWarning();
-			// Release any cached data, images, etc that aren't in use.
 		}
+
+		partial void CaptureBackTapped(Foundation.NSObject sender)
+		{
+
+		}
+
+		partial void KeyEntryEditingEnded(Foundation.NSObject sender)
+		{
+		}
+
+		#region Delegate Methods
+
+		public void DidCaptureCropImage(UIImage cardImage, bool scanBackSide)
+		{
+		}
+
+		public void DidCaptureData(string data)
+		{
+		}
+
+		public void DidFailWithError(AcuantError error)
+		{
+		}
+
+		public void MobileSDKWasValidated(bool wasValidated)
+		{
+			
+		}
+
+		#endregion
 	}
 }

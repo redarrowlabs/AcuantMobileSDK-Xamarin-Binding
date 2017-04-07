@@ -6,7 +6,7 @@
     <ProjectGuid>{9AD29A33-B8EC-423E-82C0-0C6728904676}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Exe</OutputType>
-    <RootNamespace>AcuantSDK</RootNamespace>
+    <RootNamespace>AcuantMobileSDK_iOS_Sample</RootNamespace>
     <AssemblyName>AcuantSDK</AssemblyName>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
   </PropertyGroup>
