@@ -912,6 +912,46 @@ namespace AcuantMobileSDK
 		void DidFinishProcessingCardWithResult(AcuantMedicalInsuranceCard result);
 	}
 
+	interface IAcuantMobileSDKControllerProcessingDelegateForDriversLicense : IBaseAcuantMobileSDKControllerProcessingDelegate { }
+
+	// @protocol AcuantMobileSDKControllerProcessingDelegate <NSObject>
+	[Protocol, Model]
+	[BaseType(typeof(NSObject))]
+	interface AcuantMobileSDKControllerProcessingDelegateForDriversLicense : BaseAcuantMobileSDKControllerProcessingDelegate
+	{
+		// @required -(void)didFinishValidatingImageWithResult:(AcuantCardResult *)result;
+		[Abstract]
+		[Override]
+		[Export("didFinishValidatingImageWithResult:")]
+		void DidFinishValidatingImageWithResult(AcuantDriversLicenseCard result);
+
+		// @required -(void)didFinishProcessingCardWithResult:(AcuantCardResult *)result;
+		[Abstract]
+		[Override]
+		[Export("didFinishProcessingCardWithResult:")]
+		void DidFinishProcessingCardWithResult(AcuantDriversLicenseCard result);
+	}
+
+	interface IAcuantMobileSDKControllerProcessingDelegateForPassaport : IBaseAcuantMobileSDKControllerProcessingDelegate { }
+
+	// @protocol AcuantMobileSDKControllerProcessingDelegate <NSObject>
+	[Protocol, Model]
+	[BaseType(typeof(NSObject))]
+	interface AcuantMobileSDKControllerProcessingDelegateForPassaport : BaseAcuantMobileSDKControllerProcessingDelegate
+	{
+		// @required -(void)didFinishValidatingImageWithResult:(AcuantCardResult *)result;
+		[Abstract]
+		[Override]
+		[Export("didFinishValidatingImageWithResult:")]
+		void DidFinishValidatingImageWithResult(AcuantPassaportCard result);
+
+		// @required -(void)didFinishProcessingCardWithResult:(AcuantCardResult *)result;
+		[Abstract]
+		[Override]
+		[Export("didFinishProcessingCardWithResult:")]
+		void DidFinishProcessingCardWithResult(AcuantPassaportCard result);
+	}
+
 	// @interface AcuantMobileSDKController : NSObject
 	[BaseType(typeof(NSObject))]
 	interface AcuantMobileSDKController
