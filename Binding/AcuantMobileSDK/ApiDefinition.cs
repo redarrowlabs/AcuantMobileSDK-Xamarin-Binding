@@ -740,6 +740,7 @@ namespace AcuantMobileSDK
 		void DidCaptureCropImage(UIImage cardImage, string data, bool scanBackSide);
 
 		// @optional -(void)didFailToCaptureCropImage;
+		[Abstract]
 		[Export("didFailToCaptureCropImage")]
 		void DidFailToCaptureCropImage();
 
@@ -845,6 +846,8 @@ namespace AcuantMobileSDK
 		//[Verify(MethodToProperty)]
 		bool CameraPrefersStatusBarHidden { get; }
 	}
+
+	interface IAcuantMobileSDKControllerProcessingDelegate { }
 
 	// @protocol AcuantMobileSDKControllerProcessingDelegate <NSObject>
 	[Protocol, Model]
@@ -991,11 +994,11 @@ namespace AcuantMobileSDK
 
 		// -(void)processFrontCardImage:(UIImage *)frontImage BackCardImage:(UIImage *)backImage andStringData:(NSString *)stringData withDelegate:(id<AcuantMobileSDKControllerProcessingDelegate>)delegate withOptions:(AcuantCardProcessRequestOptions *)options;
 		[Export("processFrontCardImage:BackCardImage:andStringData:withDelegate:withOptions:")]
-		void ProcessFrontCardImage(UIImage frontImage, UIImage backImage, string stringData, AcuantMobileSDKControllerProcessingDelegate @delegate, AcuantCardProcessRequestOptions options);
+		void ProcessCardImages(UIImage frontImage, [NullAllowed]UIImage backImage, [NullAllowed]string stringData, IAcuantMobileSDKControllerProcessingDelegate @delegate, AcuantCardProcessRequestOptions options);
 
 		// -(void)validatePhotoOne:(UIImage *)selfieImage withImage:(NSData *)imageTwo withDelegate:(id<AcuantMobileSDKControllerProcessingDelegate>)delegate withOptions:(AcuantCardProcessRequestOptions *)option;
 		[Export("validatePhotoOne:withImage:withDelegate:withOptions:")]
-		void ValidatePhotoOne(UIImage selfieImage, NSData imageTwo, AcuantMobileSDKControllerProcessingDelegate @delegate, AcuantCardProcessRequestOptions option);
+		void ValidatePhotoOne(UIImage selfieImage, NSData imageTwo, IAcuantMobileSDKControllerProcessingDelegate @delegate, AcuantCardProcessRequestOptions option);
 
 		// -(void)enableLocationTracking;
 		[Export("enableLocationTracking")]
@@ -1065,7 +1068,7 @@ namespace AcuantMobileSDK
 
 		// -(void)processCardWithOptions:(AcuantCardProcessRequestOptions *)options frontImage:(UIImage *)frontImage backImage:(UIImage *)backImage barcodeString:(NSString *)dataString;
 		[Export("processCardWithOptions:frontImage:backImage:barcodeString:")]
-		void ProcessCardWithOptions(AcuantCardProcessRequestOptions options, UIImage frontImage, UIImage backImage, string dataString);
+		void ProcessCardWithOptions(AcuantCardProcessRequestOptions options, UIImage frontImage, [NullAllowed]UIImage backImage, [NullAllowed]string dataString);
 
 		// -(void)deleteAssureIDInstance:(NSString *)instanceID;
 		[Export("deleteAssureIDInstance:")]

@@ -13,7 +13,7 @@ namespace AcuantMobileSDK_iOS_Sample
 	partial class ViewController
 	{
 		[Outlet]
-		UIKit.UIButton CaptureBackButton { get; set; }
+		UIKit.UIImageView BackImageView { get; set; }
 
 		[Outlet]
 		UIKit.UIButton CaptureFrontButton { get; set; }
@@ -22,7 +22,13 @@ namespace AcuantMobileSDK_iOS_Sample
 		UIKit.UISegmentedControl CardTypeSegment { get; set; }
 
 		[Outlet]
+		UIKit.UIImageView FrontImageView { get; set; }
+
+		[Outlet]
 		UIKit.UITextField KeyEntry { get; set; }
+
+		[Outlet]
+		UIKit.UIButton ProcessDataButton { get; set; }
 
 		[Action ("CaptureBackTapped:")]
 		partial void CaptureBackTapped (Foundation.NSObject sender);
@@ -30,21 +36,11 @@ namespace AcuantMobileSDK_iOS_Sample
 		[Action ("CaptureFrontTapped:")]
 		partial void CaptureFrontTapped (Foundation.NSObject sender);
 
-		[Action ("KeyEntryEditingEnded:")]
-		partial void KeyEntryEditingEnded (Foundation.NSObject sender);
+		[Action ("ProcessDataTapped:")]
+		partial void ProcessDataTapped (Foundation.NSObject sender);
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (KeyEntry != null) {
-				KeyEntry.Dispose ();
-				KeyEntry = null;
-			}
-
-			if (CaptureBackButton != null) {
-				CaptureBackButton.Dispose ();
-				CaptureBackButton = null;
-			}
-
 			if (CaptureFrontButton != null) {
 				CaptureFrontButton.Dispose ();
 				CaptureFrontButton = null;
@@ -53,6 +49,26 @@ namespace AcuantMobileSDK_iOS_Sample
 			if (CardTypeSegment != null) {
 				CardTypeSegment.Dispose ();
 				CardTypeSegment = null;
+			}
+
+			if (KeyEntry != null) {
+				KeyEntry.Dispose ();
+				KeyEntry = null;
+			}
+
+			if (ProcessDataButton != null) {
+				ProcessDataButton.Dispose ();
+				ProcessDataButton = null;
+			}
+
+			if (BackImageView != null) {
+				BackImageView.Dispose ();
+				BackImageView = null;
+			}
+
+			if (FrontImageView != null) {
+				FrontImageView.Dispose ();
+				FrontImageView = null;
 			}
 		}
 	}
