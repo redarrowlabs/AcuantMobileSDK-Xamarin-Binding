@@ -127,6 +127,10 @@
     <Compile Include="ViewController.designer.cs">
       <DependentUpon>ViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="ShowResultViewController.cs" />
+    <Compile Include="ShowResultViewController.designer.cs">
+      <DependentUpon>ShowResultViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Binding\AcuantMobileSDK\AcuantMobileSDK.csproj">

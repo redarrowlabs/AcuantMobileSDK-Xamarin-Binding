@@ -65,6 +65,8 @@ namespace AcuantMobileSDK
 		AcuantCardProcessRequestOptions DefaultRequestOptionsForCardType(AcuantCardType type);
 	}
 
+	interface IAcuantCardResult { }
+
 	// @interface AcuantCardResult : NSObject
 	[BaseType(typeof(NSObject))]
 	interface AcuantCardResult
@@ -89,6 +91,7 @@ namespace AcuantMobileSDK
 		[Export("initWithDictionary:")]
 		IntPtr Constructor(NSDictionary dictionary);
 	}
+
 
 	// @interface AcuantPassaportCard : AcuantCardResult
 	[BaseType(typeof(AcuantCardResult))]
@@ -225,6 +228,7 @@ namespace AcuantMobileSDK
 		[Export("instanceWithError:andMessage:")]
 		AcuantError InstanceWithError(AcuantErrorType errorType, string errorMessage);
 	}
+
 
 	// @interface AcuantMedicalInsuranceCard : AcuantCardResult
 	[BaseType(typeof(AcuantCardResult))]
@@ -847,22 +851,12 @@ namespace AcuantMobileSDK
 		bool CameraPrefersStatusBarHidden { get; }
 	}
 
-	interface IAcuantMobileSDKControllerProcessingDelegate { }
+	interface IBaseAcuantMobileSDKControllerProcessingDelegate { }
 
-	// @protocol AcuantMobileSDKControllerProcessingDelegate <NSObject>
 	[Protocol, Model]
-	[BaseType(typeof(NSObject))]
-	interface AcuantMobileSDKControllerProcessingDelegate
+	[BaseType(typeof(NSObject), Name="AcuantMobileSDKControllerProcessingDelegate")]
+	interface BaseAcuantMobileSDKControllerProcessingDelegate
 	{
-		// @required -(void)didFinishValidatingImageWithResult:(AcuantCardResult *)result;
-		[Abstract]
-		[Export("didFinishValidatingImageWithResult:")]
-		void DidFinishValidatingImageWithResult(AcuantCardResult result);
-
-		// @required -(void)didFinishProcessingCardWithResult:(AcuantCardResult *)result;
-		[Abstract]
-		[Export("didFinishProcessingCardWithResult:")]
-		void DidFinishProcessingCardWithResult(AcuantCardResult result);
 
 		// @required -(void)didFailWithError:(AcuantError *)error;
 		[Abstract]
@@ -888,6 +882,34 @@ namespace AcuantMobileSDK
 		// @optional -(void)didFailProcessingAssureIDWithError:(AcuantError *)error;
 		[Export("didFailProcessingAssureIDWithError:")]
 		void DidFailProcessingAssureIDWithError(AcuantError error);
+
+		// @required -(void)didFinishValidatingImageWithResult:(AcuantCardResult *)result;
+		[Export("didFinishValidatingImageWithResult:")]
+		void DidFinishValidatingImageWithResult(NSObject result);
+
+		// @required -(void)didFinishProcessingCardWithResult:(AcuantCardResult *)result;
+		[Export("didFinishProcessingCardWithResult:")]
+		void DidFinishProcessingCardWithResult(NSObject result);
+	}
+
+	interface IAcuantMobileSDKControllerProcessingDelegateForMedical : IBaseAcuantMobileSDKControllerProcessingDelegate { }
+
+	// @protocol AcuantMobileSDKControllerProcessingDelegate <NSObject>
+	[Protocol, Model]
+	[BaseType(typeof(NSObject))]
+	interface AcuantMobileSDKControllerProcessingDelegateForMedical : BaseAcuantMobileSDKControllerProcessingDelegate
+	{
+		// @required -(void)didFinishValidatingImageWithResult:(AcuantCardResult *)result;
+		[Abstract]
+		[Override]
+		[Export("didFinishValidatingImageWithResult:")]
+		void DidFinishValidatingImageWithResult(AcuantMedicalInsuranceCard result);
+
+		// @required -(void)didFinishProcessingCardWithResult:(AcuantCardResult *)result;
+		[Abstract]
+		[Override]
+		[Export("didFinishProcessingCardWithResult:")]
+		void DidFinishProcessingCardWithResult(AcuantMedicalInsuranceCard result);
 	}
 
 	// @interface AcuantMobileSDKController : NSObject
@@ -994,11 +1016,11 @@ namespace AcuantMobileSDK
 
 		// -(void)processFrontCardImage:(UIImage *)frontImage BackCardImage:(UIImage *)backImage andStringData:(NSString *)stringData withDelegate:(id<AcuantMobileSDKControllerProcessingDelegate>)delegate withOptions:(AcuantCardProcessRequestOptions *)options;
 		[Export("processFrontCardImage:BackCardImage:andStringData:withDelegate:withOptions:")]
-		void ProcessCardImages(UIImage frontImage, [NullAllowed]UIImage backImage, [NullAllowed]string stringData, IAcuantMobileSDKControllerProcessingDelegate @delegate, AcuantCardProcessRequestOptions options);
+		void ProcessCardImages(UIImage frontImage, [NullAllowed]UIImage backImage, [NullAllowed]string stringData, IBaseAcuantMobileSDKControllerProcessingDelegate @delegate, AcuantCardProcessRequestOptions options);
 
 		// -(void)validatePhotoOne:(UIImage *)selfieImage withImage:(NSData *)imageTwo withDelegate:(id<AcuantMobileSDKControllerProcessingDelegate>)delegate withOptions:(AcuantCardProcessRequestOptions *)option;
 		[Export("validatePhotoOne:withImage:withDelegate:withOptions:")]
-		void ValidatePhotoOne(UIImage selfieImage, NSData imageTwo, IAcuantMobileSDKControllerProcessingDelegate @delegate, AcuantCardProcessRequestOptions option);
+		void ValidatePhotoOne(UIImage selfieImage, NSData imageTwo, IBaseAcuantMobileSDKControllerProcessingDelegate @delegate, AcuantCardProcessRequestOptions option);
 
 		// -(void)enableLocationTracking;
 		[Export("enableLocationTracking")]

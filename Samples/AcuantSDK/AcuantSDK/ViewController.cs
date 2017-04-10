@@ -4,11 +4,16 @@ using UIKit;
 using AcuantMobileSDK;
 using Foundation;
 using Acr.UserDialogs;
+using System.Text;
 
 namespace AcuantMobileSDK_iOS_Sample
 {
-	public partial class ViewController : UITableViewController, IAcuantMobileSDKControllerCapturingDelegate, IAcuantMobileSDKControllerProcessingDelegate
+	public partial class ViewController : UITableViewController,
+		IAcuantMobileSDKControllerCapturingDelegate,
+	IAcuantMobileSDKControllerProcessingDelegateForMedical
 	{
+		private string resultText = null;
+
 		private bool _wasValidated;
 		private AcuantMobileSDKController instance;
 
@@ -25,6 +30,8 @@ namespace AcuantMobileSDK_iOS_Sample
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
+
+			this.TableView.TableFooterView = new UIView();
 
 			CardTypeSegment.Enabled = false;
 			CaptureFrontButton.Enabled = false;
@@ -85,7 +92,7 @@ namespace AcuantMobileSDK_iOS_Sample
 				BackImageView.Image = _backOfCardImage;
 			}
 
-			if(captureForBackOfCard)
+			if (captureForBackOfCard)
 			{
 				ShowCameraInterface(true);
 			}
@@ -101,14 +108,15 @@ namespace AcuantMobileSDK_iOS_Sample
 			ShowAlert("Error", error.ErrorMessage);
 		}
 
-		public void DidFinishValidatingImageWithResult(AcuantCardResult result)
+		public void DidFinishValidatingImageWithResult(AcuantMedicalInsuranceCard result)
 		{
 			UserDialogs.Instance.HideLoading();
 
 			//ShowAlert("Error", result.mes
 		}
 
-		public void DidFinishProcessingCardWithResult(AcuantCardResult result)
+		[Export("didFinishProcessingCardWithResult:")]
+		public void DidFinishProcessingCardWithResult(AcuantMedicalInsuranceCard result)
 		{
 			UserDialogs.Instance.HideLoading();
 
@@ -117,48 +125,51 @@ namespace AcuantMobileSDK_iOS_Sample
 			UIImage signatureImage;
 			UIImage frontImage;
 			UIImage backImage;
-			if (cardType == AcuantCardType.DriversLicenseCard)
-			{
-				AcuantDriversLicenseCard data = result as AcuantDriversLicenseCard;
-				// TODO: parse data
 
-				//message [NSString stringWithFormat:@"First Name - %@ \nMiddle Name - %@ \nLast Name - 		%@ 	\nName Suffix - %@ \nAuthentication Result - %@ \nAunthentication Summary - %@ 		\nID - 	%@ 	\nLicense - %@ \nDOB Long - %@ \nDOB Short - %@ \nDate Of Birth Local - %@ 		\nIssue 	Date 	Long - %@ \nIssue Date Short - %@ \nIssue Date Local - %@ 		\nExpiration Date Long - 	%@ 	\nExpiration Date Short - %@ \nEye Color - %@ \nHair 		Color - %@ \nHeight - %@ \nWeight 	- 	%@ \nAddress - %@ \nAddress 2 - %@ \nAddress 3 		- %@ \nAddress 4 - %@ \nAddress 5 - %@ 		\nAddress 6  - %@ \nCity - %@ \nZip - %@ \nState - %@ \nCounty - %@ \nCountry Short - 		%@ 	\nCountry Long - %@ \nClass - %@ \nRestriction - %@ \nSex - %@ \nAudit - %@ 		\nEndorsements 	- %@ \nFee - %@ \nCSC - %@ \nSigNum - %@ \nText1 - %@ \nText2 - %@ 		\nText3 - %@ \nType - 	%@ \nDoc Type - %@ \nFather Name - %@ \nMother Name - %@ 		\nNameFirst_NonMRZ - %@ 	\nNameLast_NonMRZ - %@ \nNameLast1 - %@ \nNameLast2 - %@ 		\nNameMiddle_NonMRZ - %@ 	\nNameSuffix_NonMRZ - %@ \nDocument Detected Name - %@ 		\nDocument Detected Name Short - %@ 	\nNationality - %@ \nOriginal - %@ 		\nPlaceOfBirth - %@ \nPlaceOfIssue - %@ \nSocial 		Security - %@ \nIsAddressCorrected - %d \nIsAddressVerified - %d", data.nameFirst, 		data.nameMiddle, data.nameLast, data.nameSuffix,data.authenticationResult,[self 		arrayToString:data.authenticationResultSummaryList], data.licenceId, data.license, 		data.dateOfBirth4, data.dateOfBirth, data.dateOfBirthLocal, data.issueDate4, 		data.issueDate, data.issueDateLocal, data.expirationDate4, data.expirationDate, 		data.eyeColor, data.hairColor, data.height, data.weight, data.address, data.address2, 		data.address3, data.address4, data.address5, data.address6, data.city, data.zip, 		data.state, data.county, data.countryShort, data.idCountry, data.licenceClass, 		data.restriction, data.sex, data.audit, data.endorsements, data.fee, data.CSC, 		data.sigNum, data.text1, data.text2, data.text3, data.type, data.docType, 		data.fatherName, 	data.motherName, data.nameFirst_NonMRZ, data.nameLast_NonMRZ, 		data.nameLast1, 	data.nameLast2, data.nameMiddle_NonMRZ, data.nameSuffix_NonMRZ, 		data.documentDetectedName, 	data.documentDetectedNameShort, data.nationality, 		data.original, data.placeOfBirth, 	data.placeOfIssue, data.socialSecurity, 		data.isAddressCorrected, data.isAddressVerified];
+			StringBuilder builder = new StringBuilder();
+			builder.AppendLine($"First Name - {result.FirstName}");
+			builder.AppendLine($"Middle Name - {result.MiddleName}");
+			builder.AppendLine($"Last Name - {result.LastName}");
+			builder.AppendLine($"Member ID - {result.MemberId}");
+			builder.AppendLine($"Group Number - {result.GroupNumber}");
+			builder.AppendLine($"Contract Code - {result.ContractCode}");
+			builder.AppendLine($"Copay ER - {result.CopayEr}");
+			builder.AppendLine($"Copay OV - {result.CopayOv}");
+			builder.AppendLine($"Copay SP - {result.CopaySp}");
+			builder.AppendLine($"Copay UC - {result.CopayUc}");
+			builder.AppendLine($"Coverage - {result.Coverage}");
+			builder.AppendLine($"Date of Birth - {result.DateOfBirth}");
+			builder.AppendLine($"Deductible - {result.Deductible}");
+			builder.AppendLine($"Effective Date - {result.EffectiveDate}");
+			builder.AppendLine($"Employer - {result.Employer}");
+			builder.AppendLine($"Expire Date - {result.ExpirationDate}");
+			builder.AppendLine($"Group Name - {result.GroupName}");
+			builder.AppendLine($"Issuer Number - {result.IssuerNumber}");
+			builder.AppendLine($"Other - {result.Other}");
+			builder.AppendLine($"Payer ID - {result.PayerId}");
+			builder.AppendLine($"Plan Admin - {result.PlanAdmin}");
+			builder.AppendLine($"Plan Provider - {result.PlanProvider}");
+			builder.AppendLine($"Plan Type - {result.PlanType}");
+			builder.AppendLine($"RX Bin - {result.RxBin}");
+			builder.AppendLine($"RX Group - {result.RxGroup}");
+			builder.AppendLine($"RX ID - {result.RxId}");
+			builder.AppendLine($"RX PCN - {result.RxPcn}");
+			builder.AppendLine($"Telephone - {result.PhoneNumber}");
+			builder.AppendLine($"Web - {result.WebAddress}");
+			builder.AppendLine($"Address - {result.FullAddress}");
+			builder.AppendLine($"City - {result.City}");
+			builder.AppendLine($"Zip - {result.Zip}");
+			builder.AppendLine($"State - {result.State}");
 
-				//if (_region == AcuantCardRegionUnitedStates || _region == AcuantCardRegionCanada) {
-				//message = [NSString stringWithFormat:@"%@ \nIsBarcodeRead - %hhd \nIsIDVerified - 			%hhd \nIsOcrRead - %hhd", message, data.isBarcodeRead, data.isIDVerified, 			data.isOcrRead];
-				//}
+			frontImage = UIImage.LoadFromData(result.ReformattedImage);
+			backImage = UIImage.LoadFromData(result.ReformattedImageTwo);
 
-				//faceimage = [UIImage imageWithData:data.faceImage];
-				//signatureImage = [UIImage imageWithData:data.signatureImage];
-				//frontImage = [UIImage imageWithData:data.licenceImage];
-				//backImage = [UIImage imageWithData:data.licenceImageTwo]
-			}
-			else if (cardType == AcuantCardType.MedicalInsuranceCard)
-			{
-				AcuantMedicalInsuranceCard data = result as AcuantMedicalInsuranceCard;
-				// TODO: parse data
+			FrontImageView.Image = frontImage;
+			BackImageView.Image = backImage;
 
-				//message =[NSString stringWithFormat: @"First Name - %@ \nLast Name - %@ \nMiddle Name - %@ \nMemberID - %@ \nGroup No. - %@ \nContract Code - %@ \nCopay ER - %@ \nCopay OV - %@ \nCopay SP - %@ \nCopay UC - %@ \nCoverage - %@ \nDate of Birth - %@ \nDeductible - %@ \nEffective Date - %@ \nEmployer - %@ \nExpire Date - %@ \nGroup Name - %@ \nIssuer Number - %@ \nOther - %@ \nPayer ID - %@ \nPlan Admin - %@ \nPlan Provider - %@ \nPlan Type - %@ \nRX Bin - %@ \nRX Group - %@ \nRX ID - %@ \nRX PCN - %@ \nTelephone - %@ \nWeb - %@ \nEmail - %@ \nAddress - %@ \nCity - %@ \nZip - %@ \nState - %@", data.firstName, data.lastName, data.middleName, data.memberId, data.groupNumber, data.contractCode, data.copayEr, data.copayOv, data.copaySp, data.copayUc, data.coverage, data.dateOfBirth, data.deductible, data.effectiveDate, data.employer, data.expirationDate, data.groupName, data.issuerNumber, data.other, data.payerId, data.planAdmin, data.planProvider, data.planType, data.rxBin, data.rxGroup, data.rxId, data.rxPcn, data.phoneNumber, data.webAddress, data.email, data.fullAddress, data.city, data.zip, data.state];
+			resultText = builder.ToString();
 
-				//frontImage = [UIImage imageWithData: data.reformattedImage];
-				//backImage = [UIImage imageWithData: data.reformattedImageTwo];
-			}
-			else if (cardType == AcuantCardType.PassportCard)
-			{
-				AcuantPassaportCard data = result as AcuantPassaportCard;
-				// TODO: parse data
-				//message =[NSString stringWithFormat: @"First Name - %@ \nMiddle Name - %@ \nLast Name
-				//- %@ \nAuthentication Result - %@ \nAunthentication Summary - %@ \nPassport Number -
-				//%@ \nPersonal Number - %@ \nSex - %@ \nCountry Long - %@ \nNationality Long - %@
-				//\nDOB Long - %@ \nIssue Date Long - %@ \nExpiration Date Long - %@ \nPlace of Birth -
-				//%@", data.nameFirst, data.nameMiddle, data.nameLast, data.authenticationResult,[self
-				//arrayToString: data.authenticationResultSummaryList], data.passportNumber,
-				//data.personalNumber, data.sex, data.countryLong, data.nationalityLong,
-				//data.dateOfBirth4, data.issueDate4, data.expirationDate4, data.end_POB];
-
-				//faceimage = [UIImage imageWithData: data.faceImage];
-				//frontImage = [UIImage imageWithData: data.passportImage];
-			}
+			this.PerformSegue("ShowResultSegue", this);
 		}
 
 		public void DidFailToCaptureCropImage()
@@ -166,6 +177,14 @@ namespace AcuantMobileSDK_iOS_Sample
 		}
 
 		#endregion
+
+		public override void PrepareForSegue(UIStoryboardSegue segue, NSObject sender)
+		{
+			base.PrepareForSegue(segue, sender);
+
+			var vc = segue.DestinationViewController as ShowResultViewController;
+			vc.ResultText = this.resultText;
+		}
 
 
 		private void SetCardTypeConfigs()
@@ -255,10 +274,10 @@ namespace AcuantMobileSDK_iOS_Sample
 
 			// perform the request
 			instance.ProcessCardImages(
-				frontImage: _frontOfCardImage, 
-				backImage: _backOfCardImage, 
-				stringData: null, 
-				@delegate: this, 
+				frontImage: _frontOfCardImage,
+				backImage: _backOfCardImage,
+				stringData: null,
+				@delegate: this,
 				options: options);
 		}
 
