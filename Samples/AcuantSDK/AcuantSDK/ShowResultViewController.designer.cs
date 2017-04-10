@@ -14,6 +14,9 @@ namespace AcuantMobileSDK_iOS_Sample
 	{
 		[Outlet]
 		UIKit.UILabel OutputLabel { get; set; }
+
+		[Action ("CloseTapped:")]
+		partial void CloseTapped (Foundation.NSObject sender);
 		
 		void ReleaseDesignerOutlets ()
 		{

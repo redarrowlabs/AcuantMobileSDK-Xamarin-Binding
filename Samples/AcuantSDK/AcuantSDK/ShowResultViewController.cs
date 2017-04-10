@@ -9,14 +9,22 @@ namespace AcuantMobileSDK_iOS_Sample
 {
 	public partial class ShowResultViewController : UIViewController
 	{
-		public string ResultText
-		{
-			get { return OutputLabel.Text; }
-			set { OutputLabel.Text = value; }
-		}
+		public string ResultText { get; set; }
 
 		public ShowResultViewController (IntPtr handle) : base (handle)
 		{
+		}
+
+		public override void ViewDidLoad()
+		{
+			base.ViewDidLoad();
+
+			OutputLabel.Text = ResultText;
+		}
+
+		partial void CloseTapped(NSObject sender)
+		{
+			this.NavigationController.PopViewController(true);
 		}
 	}
 }

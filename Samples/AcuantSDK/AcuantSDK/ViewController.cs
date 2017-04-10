@@ -182,10 +182,9 @@ namespace AcuantMobileSDK_iOS_Sample
 		{
 			base.PrepareForSegue(segue, sender);
 
-			var vc = segue.DestinationViewController as ShowResultViewController;
+			var vc = (segue.DestinationViewController as UINavigationController).TopViewController as ShowResultViewController;
 			vc.ResultText = this.resultText;
 		}
-
 
 		private void SetCardTypeConfigs()
 		{

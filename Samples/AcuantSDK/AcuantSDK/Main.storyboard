@@ -178,12 +178,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <connections>
+                        <segue destination="HpP-r4-gwx" kind="relationship" relationship="rootViewController" id="ILf-Sa-mbe"/>
+                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8rg-tb-Do9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1146" y="116"/>
         </scene>
-        <!--Show Result View Controller-->
+        <!--Result-->
         <scene sceneID="9KG-CF-hza">
             <objects>
                 <viewController id="HpP-r4-gwx" customClass="ShowResultViewController" sceneMemberID="viewController">
@@ -195,22 +198,48 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ml-qh-c2J">
-                                <rect key="frame" x="16" y="84" width="343" height="563"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z7D-p2-143">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ml-qh-c2J">
+                                        <rect key="frame" x="16" y="21" width="343" height="832"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="832" id="jhr-1w-abj"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="3Ml-qh-c2J" secondAttribute="trailing" constant="16" id="Kje-29-1HJ"/>
+                                    <constraint firstItem="3Ml-qh-c2J" firstAttribute="centerX" secondItem="Z7D-p2-143" secondAttribute="centerX" id="N5Z-yM-4eu"/>
+                                    <constraint firstItem="3Ml-qh-c2J" firstAttribute="leading" secondItem="Z7D-p2-143" secondAttribute="leading" constant="16" id="NXl-75-CVg"/>
+                                    <constraint firstAttribute="bottom" secondItem="3Ml-qh-c2J" secondAttribute="bottom" constant="-250" id="NeF-92-LDV"/>
+                                    <constraint firstItem="3Ml-qh-c2J" firstAttribute="top" secondItem="Z7D-p2-143" secondAttribute="top" constant="21" id="OkN-FP-3Y7"/>
+                                </constraints>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="3Ml-qh-c2J" firstAttribute="leading" secondItem="laM-77-OFM" secondAttribute="leadingMargin" id="Elq-2V-weN"/>
-                            <constraint firstItem="3Ml-qh-c2J" firstAttribute="trailing" secondItem="laM-77-OFM" secondAttribute="trailingMargin" id="NTX-qZ-m7I"/>
-                            <constraint firstAttribute="bottom" secondItem="3Ml-qh-c2J" secondAttribute="bottom" constant="20" symbolic="YES" id="qMx-Yd-GML"/>
-                            <constraint firstItem="3Ml-qh-c2J" firstAttribute="top" secondItem="D7v-hw-8Vc" secondAttribute="bottom" constant="20" id="xNA-4O-QdT"/>
+                            <constraint firstItem="Z7D-p2-143" firstAttribute="top" secondItem="D7v-hw-8Vc" secondAttribute="bottom" id="E8e-oA-3T5"/>
+                            <constraint firstItem="Z7D-p2-143" firstAttribute="leading" secondItem="laM-77-OFM" secondAttribute="leading" id="MjN-1o-dQP"/>
+                            <constraint firstItem="Z7D-p2-143" firstAttribute="bottom" secondItem="fSV-7L-f5J" secondAttribute="top" id="T5f-i6-Nmy"/>
+                            <constraint firstAttribute="trailing" secondItem="Z7D-p2-143" secondAttribute="trailing" id="uqZ-ml-R8k"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="nK4-zr-EF6"/>
+                    <navigationItem key="navigationItem" title="Result" id="nK4-zr-EF6">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="0iA-qn-m49">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="dBk-l3-2uS">
+                                <rect key="frame" x="16" y="7" width="83" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Close"/>
+                            </button>
+                            <connections>
+                                <action selector="CloseTapped:" destination="HpP-r4-gwx" id="tWs-O7-wVA"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="OutputLabel" destination="3Ml-qh-c2J" id="ozk-cx-gYE"/>
                     </connections>
